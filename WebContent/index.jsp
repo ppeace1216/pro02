@@ -11,7 +11,8 @@
 <script src='https://unpkg.com/bootstrap@4/dist/js/bootstrap.min.js'></script>
 </head>
 <body>
+<%@ include file = "header.jsp" %>
 <h1>메인페이지 테스트</h1>
-<a href="NoticeListCtrl.java">공지사항 목록으로 가기</a>
+<a href="GetNotiListCtrl">공지사항 목록으로 가기</a>
 </body>
 </html>
