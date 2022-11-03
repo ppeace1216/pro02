@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset=UTF-8">
+<meta charset="UTF-8">
 <title>공지사항 상세보기</title>
 <link rel="stylesheet" href="https://unpkg.com/bootstrap@4/dist/css/bootstrap.min.css">
 <script src='https://unpkg.com/jquery@3/dist/jquery.min.js'></script>
@@ -12,11 +12,12 @@
 <script src='https://unpkg.com/bootstrap@4/dist/js/bootstrap.min.js'></script>
 </head>
 <body>
+<%@ include file="../header.jsp" %>
 <%
 	Notice vo = (Notice) request.getAttribute("notice");
 %>
-<div class="content container">
-	<h2>공지사항 상세보기</h2>
+<div class="content container" id="content">
+	<h2 class="title">공지사항 목록</h2>
 	<table class="table">
 		<tbody>
 			<tr>
@@ -36,13 +37,15 @@
 				<td><%=vo.getAuthor() %></td>
 			</tr>
 			<tr>
-				<th>작성일</th>
+				<th>작성시간</th>
 				<td><%=vo.getResdate() %></td>
 			</tr>
 		</tbody>
 	</table>
 	<div class="btn-group">
-		<a href="GetNotiListCtrl" class="btn btn-outline-info">목록으로</a>
+		<a href="<%=request.getContextPath()%>/GetNotiListCtrl" class="btn btn-info">목록으로</a>
+		<a href="<%=request.getContextPath()%>/UpdateNoticeCtrl?notiNo=<%=vo.getNotiNo() %>" class="btn btn-info">글 수정</a>
+		<a href="<%=request.getContextPath()%>/DeleteNoticeCtrl?notiNo=<%=vo.getNotiNo() %>" class="btn btn-danger">글 삭제</a>
 	</div>
 </div>
 </body>

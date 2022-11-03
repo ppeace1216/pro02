@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset=UTF-8">
+<meta charset="UTF-8">
 <title>공지사항 목록</title>
 <link rel="stylesheet" href="https://unpkg.com/bootstrap@4/dist/css/bootstrap.min.css">
 <script src='https://unpkg.com/jquery@3/dist/jquery.min.js'></script>
@@ -28,12 +28,18 @@
 		<% for(int i=0;i<notiList.size();i++){
 			Notice vo = notiList.get(i);
 		%>
-			<tr><%=vo.getNotiNo() %></tr>
-			<tr><a href="GetNotiDetailCtrl?notiNo=<%=vo.getNotiNo() %>"><%=vo.getTitle() %></a></tr>
-			<tr><%=vo.getResdate() %></tr>
-		<%} %>
+		<tr>
+			<td><%=notiList.size()-i %></td>
+			<td><a href="<%=request.getContextPath()%>/GetNotiDetailCtrl?notiNo=<%=vo.getNotiNo() %>"><%=vo.getTitle() %></a></td>
+			<td><%=vo.getResdate() %></td>
+		</tr>
+		<% } %>	
 		</tbody>
 	</table>
+	<div class="btn-group">
+		<a href="./notice/insertNotice.jsp" class="btn btn-danger">글 등록</a>
+	</div>
 </div>
+<%@ include file="../footer.jsp" %>
 </body>
 </html>

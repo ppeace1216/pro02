@@ -9,10 +9,16 @@
 <script src='https://unpkg.com/jquery@3/dist/jquery.min.js'></script>
 <script src='https://unpkg.com/popper.js@1/dist/umd/popper.min.js'></script>
 <script src='https://unpkg.com/bootstrap@4/dist/js/bootstrap.min.js'></script>
+<link rel="stylesheet" href="common.css">
+<style>
+.in_container { clear:both; width:1400px; margin:0 auto; }
+.in_container:after { content:""; display:block; clear:both; }
+</style>
 </head>
 <body>
 <%@ include file = "header.jsp" %>
 <h1>메인페이지 테스트</h1>
 <a href="GetNotiListCtrl">공지사항 목록으로 가기</a>
+<%@ include file="footer.jsp" %>
 </body>
 </html>

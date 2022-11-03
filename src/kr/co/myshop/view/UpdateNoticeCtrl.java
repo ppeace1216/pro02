@@ -16,17 +16,16 @@ import javax.servlet.http.HttpServletResponse;
 import kr.co.myshop.vo.Notice;
 
 
-@WebServlet("/GetNotiDetailCtrl")
-public class GetNotiDetailCtrl extends HttpServlet {
+@WebServlet("/UpdateNoticeCtrl")
+public class UpdateNoticeCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	// DB연결
-	private final static String DRIVER = "com.mysql.cj.jdbc.Driver";
-	private final static String URL = "jdbc:mysql://localhost:3306/myshop?serverTimezone=Asia/Seoul";
-	private final static String USER = "root";
-	private final static String PASS = "a1234";
-	String sql = "";
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
+    private static final String URL = "jdbc:mysql://localhost:3306/myshop?serverTimezone=Asia/Seoul";
+    private static final String USER = "root";
+    private static final String PASS = "a1234";
+    String sql="";
+    
+	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int notiNo = Integer.parseInt(request.getParameter("notiNo"));
 		try {
 			//데이터베이스 연결
@@ -48,8 +47,8 @@ public class GetNotiDetailCtrl extends HttpServlet {
 			}
 			request.setAttribute("notice", vo);
 			
-			//notice/boardList.jsp 에 포워딩
-			RequestDispatcher view = request.getRequestDispatcher("./notice/noticeDetail.jsp");
+			//notice/updateBoard.jsp 에 포워딩
+			RequestDispatcher view = request.getRequestDispatcher("./notice/updateNotice.jsp");
 			view.forward(request, response);
 			
 			rs.close();
@@ -59,4 +58,5 @@ public class GetNotiDetailCtrl extends HttpServlet {
 			e.printStackTrace();
 		}	
 	}
+
 }
