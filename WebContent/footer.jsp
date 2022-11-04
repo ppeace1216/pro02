@@ -3,7 +3,7 @@
 <footer class="container-fluid" id="footer">    
 <div class="in_container">
 	<div class="row">
-		<div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+		<div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
 			<h6>고객센터</h6>
 			<p>1588-0000<br>
 			챗봇상담<br>제품문의 · 쇼룸안내 · A/S · 분해설치<br>
@@ -12,7 +12,7 @@
 			평일  09:30 - 17:30<br>
 			점심시간  12:30 - 13:30</strong></p>
 		</div>
-		<div class="col-xl-2 col-lg-2 col-md-3 col-sm-6">
+		<div class="col-xl-3 col-lg-3 col-md-3 col-sm-6">
 			<h6>기업고객 문의</h6>
 			<p>goodnight<br>
 			@sloubed.com<br>대량구매 및 마케팅 제휴<br>
@@ -21,14 +21,14 @@
 			평일  09:30 - 17:30<br>
 			점심시간  12:30 - 13:30</strong></p>
 		</div>
-		<div class="col-xl-2 col-lg-2 col-md-3 col-sm-6">
+		<div class="col-xl-3 col-lg-3 col-md-3 col-sm-6">
 			<h6>Quick Menu</h6>
 			<a href="">Brand Story</a>
 			<a href="">개인정보 처리방칭</a>
 			<a href="">이용약관</a>
 			<a href="">안전보건경영방침</a>
 		</div>
-		<div class="col-xl-2 col-lg-2 col-md-3 col-sm-6">
+		<div class="col-xl-3 col-lg-3 col-md-3 col-sm-6">
 			<ul class="ft_ico_lst">
 				<li><a href=""><img src="./img/sns01.png" alt="인스타그램"></a></li>
 				<li><a href=""><img src="./img/sns02.png" alt="페이스북"></a></li>
