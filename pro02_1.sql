@@ -13,7 +13,7 @@ create table notice (
 	notiNo int primary key auto_increment, title varchar(50), content varchar(1000), author varchar(16), resdate datetime default now()
     );
 desc notice;
-
+alter table notice add visited int;
 
 insert into notice (title, content, author) values("제목1", "내용 1 입니다. 테스트중입니다.", "admin");
 insert into notice (title, content, author) values("제목2", "내용 2 입니다. 테스트중입니다.", "admin");
@@ -25,7 +25,7 @@ select * from notice;
 select * from notice order by notino desc;
 commit;
 
-create table product (proNo int primary key auto_increment, cateNo int, proName varchar(50), proSpec varchar(100), proPrice varchar(20), proPic varchar(100));
+create table product (proNo int primary key auto_increment, cateNo int not null, proName varchar(50) not null, proSpec varchar(500), oriPrice int not null, discountRate double not null, proPic varchar(200), proPic2 varchar(200));
 
 create table category (cateNo int primary key auto_increment, cateName varchar(50));
 insert into category (cateName) values ("mattress");
@@ -34,3 +34,11 @@ insert into category (cateName) values ("frame");
 insert into category (cateName) values ("pillow");
 insert into category (cateName) values ("bedding");
 select * from category;
+
+create table wearing (proNo int primary key, amount int);
+
+update product 
+
+create table sales (saleNo int primary key auto_increment, cusId varchar(16), proNo int, amount int, saleDate datetime default now(), parselNo int auto_increment, salePayNo int auto_increment);
+create table parsel (parselNo int, parselAddr varchar(100), cusTel varchar(15), parselCompany varchar(50), parselTel varchar(15), parselState varchar(20));
+create table patment (salePayNo int primary key auto_increment, patMethod varchar(20), payCom varchar(20), cardNum int, payAmount int)

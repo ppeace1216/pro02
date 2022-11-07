@@ -33,6 +33,8 @@ public class GetNotiDetailCtrl extends HttpServlet {
 			Class.forName(DRIVER);
 			sql = "select * from notice where notino=?";
 			Connection con = DriverManager.getConnection(URL, USER, PASS);
+			
+			con.setAutoCommit(false); 		//트랜잭션 처리시에는 같이 처리 될 수 있도록 오토 커밋을 꺼야함
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, notiNo);
 			ResultSet rs = pstmt.executeQuery();
@@ -40,11 +42,19 @@ public class GetNotiDetailCtrl extends HttpServlet {
 			//결과를 데이터베이스로 부터 받아서 VO에 저장
 			Notice vo = new Notice();
 			if(rs.next()){
+				//해당 글이 있는 경우에만 읽은 횟수를 1씩 증가 시킴
+				sql = "update notice set visited=visited+1 where notino=?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, notiNo);
+				pstmt.executeUpdate();
+				con.commit(); 	//지금까지 진행했던 내용들이 모두 같이 성공 수행될 수 있도록 수동커밋을 함
+				con.setAutoCommit(true); 	//다음 sql 실행 구문을 위해 다시 오토커밋을 켜둠
 				vo.setNotiNo(rs.getInt("notino"));
 				vo.setTitle(rs.getString("title"));
 				vo.setContent(rs.getString("content"));
 				vo.setAuthor(rs.getString("author"));
 				vo.setResdate(rs.getString("resdate"));
+				vo.setNotiNo(rs.getInt("notiNo"));
 			}
 			request.setAttribute("notice", vo);
 			

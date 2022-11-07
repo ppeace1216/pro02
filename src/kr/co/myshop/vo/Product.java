@@ -5,8 +5,12 @@ public class Product {
 	private int cateNo;
 	private String proName;
 	private String proSpec;
-	private int proPrice;
+	private int proPrice;	//계산된 데이터 : 판매가격 = 원가*(1-할인율)
+	private int oriPrice;	//상품가격
+	private double discountRate;	//할인율
 	private String proPic;
+	private String proPic2;
+	private int amount;
 	public int getProNo() {
 		return proNo;
 	}
@@ -32,16 +36,40 @@ public class Product {
 		this.proSpec = proSpec;
 	}
 	public int getProPrice() {
-		return proPrice;
+		return (int) (this.oriPrice * (1 - this.discountRate));
 	}
 	public void setProPrice(int proPrice) {
-		this.proPrice = proPrice;
+		this.proPrice = (int) (this.oriPrice * (1 - this.discountRate));
 	}
 	public String getProPic() {
 		return proPic;
 	}
 	public void setProPic(String proPic) {
 		this.proPic = proPic;
+	}
+	public double getDiscountRate() {
+		return discountRate;
+	}
+	public void setDiscountRate(double discountRate) {
+		this.discountRate = discountRate;
+	}
+	public int getOriPrice() {
+		return oriPrice;
+	}
+	public void setOriPrice(int oriPrice) {
+		this.oriPrice = oriPrice;
+	}
+	public String getProPic2() {
+		return proPic2;
+	}
+	public void setProPic2(String proPic2) {
+		this.proPic2 = proPic2;
+	}
+	public int getAmount() {
+		return amount;
+	}
+	public void setAmount(int amount) {
+		this.amount = amount;
 	}
 	
 	

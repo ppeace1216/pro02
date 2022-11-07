@@ -1,9 +1,9 @@
-package kr.co.myshop.vo;
+ package kr.co.myshop.vo;
 
 public class Sales {
 	private int saleNo;			//판매번호
 	private String cusId;		//구매자아이디
-	private String proNo;		//상품번호
+	private int proNo;		//상품번호
 	private int amount;			//판매수량
 	private String saleDate;	//판매일
 	private int parselNo;		//택배배송번호
@@ -21,10 +21,10 @@ public class Sales {
 	public void setCusId(String cusId) {
 		this.cusId = cusId;
 	}
-	public String getProNo() {
+	public int getProNo() {
 		return proNo;
 	}
-	public void setProNo(String proNo) {
+	public void setProNo(int proNo) {
 		this.proNo = proNo;
 	}
 	public int getAmount() {
