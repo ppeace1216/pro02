@@ -16,8 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 import kr.co.myshop.vo.Product;
 
 
-@WebServlet("/GetSalesProductCtrl")
-public class GetSalesProductCtrl extends HttpServlet {
+@WebServlet("/GetProductWearingCtrl")
+public class GetProductWearingCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private final static String DRIVER = "com.mysql.cj.jdbc.Driver";
 	private final static String URL = "jdbc:mysql://localhost:3306/myshop?serverTimezone=Asia/Seoul";
@@ -29,13 +29,9 @@ public class GetSalesProductCtrl extends HttpServlet {
 		int proNo = Integer.parseInt(request.getParameter("proNo"));
 		try {
 			//데이터베이스 연결
-			Class.forName(DRIVER);		
+			Class.forName(DRIVER);
+			sql = "select * from product where prono=?";
 			Connection con = DriverManager.getConnection(URL, USER, PASS);
-			sql = "select a.prono, a.cateno, a.proname, a.prospec, a.oriprice, ";			
-			sql = sql + "a.discountrate, a.propic, a.propic2, b.amount from ";
-			sql = sql + "product a right join wearing b on a.prono=b.prono ";
-			sql = sql + "where a.prono in (select b.prono from wearing) and ";
-			sql = sql + "a.prono=?";
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, proNo);
 			ResultSet rs = pstmt.executeQuery();
@@ -51,13 +47,11 @@ public class GetSalesProductCtrl extends HttpServlet {
 				vo.setDiscountRate(rs.getDouble("discountrate"));
 				vo.setProPic(rs.getString("propic"));
 				vo.setProPic2(rs.getString("propic2"));
-				vo.setAmount(rs.getInt("amount"));
 			}
-			
 			request.setAttribute("pro", vo);
 			
 			//product/productDetail.jsp 에 포워딩
-			RequestDispatcher view = request.getRequestDispatcher("./sales/salesProduct.jsp");
+			RequestDispatcher view = request.getRequestDispatcher("./product/productWearing.jsp");
 			view.forward(request, response);
 			
 			rs.close();

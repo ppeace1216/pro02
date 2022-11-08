@@ -13,11 +13,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import kr.co.myshop.vo.Product;
+import kr.co.myshop.vo.Sales;
 
-
-@WebServlet("/GetSalesProductCtrl")
-public class GetSalesProductCtrl extends HttpServlet {
+@WebServlet("/GetSalesDetailCtrl")
+public class GetSalesDetailCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private final static String DRIVER = "com.mysql.cj.jdbc.Driver";
 	private final static String URL = "jdbc:mysql://localhost:3306/myshop?serverTimezone=Asia/Seoul";
@@ -26,38 +25,33 @@ public class GetSalesProductCtrl extends HttpServlet {
 	String sql = "";
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int proNo = Integer.parseInt(request.getParameter("proNo"));
+		int saleNo = Integer.parseInt(request.getParameter("saleNo"));
 		try {
 			//데이터베이스 연결
-			Class.forName(DRIVER);		
+			Class.forName(DRIVER);
+			sql = "select a.saleno, a.cusid, a.prono, a.amount, a.saledate, a.parselno, a.salepayno, b.parselstate from sales a inner join parsel b on a.parselno=b.parselno where a.saleno=?";
 			Connection con = DriverManager.getConnection(URL, USER, PASS);
-			sql = "select a.prono, a.cateno, a.proname, a.prospec, a.oriprice, ";			
-			sql = sql + "a.discountrate, a.propic, a.propic2, b.amount from ";
-			sql = sql + "product a right join wearing b on a.prono=b.prono ";
-			sql = sql + "where a.prono in (select b.prono from wearing) and ";
-			sql = sql + "a.prono=?";
+			
 			PreparedStatement pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, proNo);
+			pstmt.setInt(1, saleNo);
 			ResultSet rs = pstmt.executeQuery();
 			
 			//결과를 데이터베이스로 부터 받아서 VO에 저장
-			Product vo = new Product();
+			Sales vo = new Sales();
 			if(rs.next()){
+				vo.setSaleNo(rs.getInt("saleno"));
+				vo.setCusId(rs.getString("cusId"));
 				vo.setProNo(rs.getInt("prono"));
-				vo.setCateNo(rs.getInt("cateno"));
-				vo.setProName(rs.getString("proname"));
-				vo.setProSpec(rs.getString("prospec"));
-				vo.setOriPrice(rs.getInt("oriprice"));
-				vo.setDiscountRate(rs.getDouble("discountrate"));
-				vo.setProPic(rs.getString("propic"));
-				vo.setProPic2(rs.getString("propic2"));
 				vo.setAmount(rs.getInt("amount"));
+				vo.setSaleDate(rs.getString("saledate"));
+				vo.setParselNo(rs.getInt("parselno"));
+				vo.setSalePayNo(rs.getInt("salepayno"));
+				vo.setParselState(rs.getInt("parselState"));
 			}
+			request.setAttribute("sales", vo);
 			
-			request.setAttribute("pro", vo);
-			
-			//product/productDetail.jsp 에 포워딩
-			RequestDispatcher view = request.getRequestDispatcher("./sales/salesProduct.jsp");
+			//notice/boardList.jsp 에 포워딩
+			RequestDispatcher view = request.getRequestDispatcher("./sales/salesDetail.jsp");
 			view.forward(request, response);
 			
 			rs.close();

@@ -36,9 +36,14 @@ insert into category (cateName) values ("bedding");
 select * from category;
 
 create table wearing (proNo int primary key, amount int);
+select * from wearing;
 
 update product 
 
-create table sales (saleNo int primary key auto_increment, cusId varchar(16), proNo int, amount int, saleDate datetime default now(), parselNo int auto_increment, salePayNo int auto_increment);
-create table parsel (parselNo int, parselAddr varchar(100), cusTel varchar(15), parselCompany varchar(50), parselTel varchar(15), parselState varchar(20));
-create table patment (salePayNo int primary key auto_increment, patMethod varchar(20), payCom varchar(20), cardNum int, payAmount int)
+create table sales (saleNo int primary key auto_increment, cusId varchar(16) not null, proNo int not null, amount int not null, saleDate datetime default now(), parselNo int, salePayNo int);
+create table parsel (parselNo int primary key auto_increment, parselAddr varchar(100), cusTel varchar(15), parselCompany varchar(50), parselTel varchar(15), parselState int default 0);
+create table payment (salePayNo int primary key auto_increment, payMethod varchar(20), payCom varchar(50), cardNum varchar(20), payAmount int);
+select * from sales;
+select * from parsel;
+select * from payment;
+alter table sales add column parselState int default 0;

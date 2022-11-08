@@ -7,6 +7,7 @@ public class Parsel {
 	private String parselCompany;	//배송회사
 	private String parselTel;		//배송기사 연락처
 	private int parselState;	//배송상태
+	private int valeCode;		//화물코드
 	public int getParselNo() {
 		return parselNo;
 	}

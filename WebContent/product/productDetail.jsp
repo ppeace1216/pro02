@@ -55,7 +55,11 @@
 			<tr>
 				<th>제품 수량</th>
 				<td>
-					제품 수량 : <%=vo.getAmount() %>
+				<% if(vo.getAmount()!=0) { %>
+					<%=vo.getAmount() %>
+				<% } else { %>
+				<strong style="color:red">[품절]</strong>
+				<% } %>
 				</td>
 			</tr>
 		</tbody>
@@ -65,6 +69,10 @@
 		<% if(sid.equals("admin")) { %>
 		<a href="<%=request.getContextPath() %>/DeleteProductCtrl?proNo=<%=vo.getProNo() %>" class="btn btn-primary">제품 삭제</a>
 		<a href="<%=request.getContextPath() %>/UpdateProductCtrl?proNo=<%=vo.getProNo() %>" class="btn btn-danger">제품 정보 수정</a>
+		<a href="<%=request.getContextPath() %>/GetProductWearingCtrl?proNo=<%=vo.getProNo() %>" class="btn btn-danger">제품 입고</a>
+		<% } %>
+		<% if(vo.getAmount()!=0) { %>
+		<a href="<%=request.getContextPath() %>/GetSalesProductCtrl?proNo=<%=vo.getProNo() %>" class="btn btn-primary">제품 구매</a>
 		<% } %>
 	</div>
 </div>

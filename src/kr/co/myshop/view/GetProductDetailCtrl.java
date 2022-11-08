@@ -54,6 +54,7 @@ public class GetProductDetailCtrl extends HttpServlet {
 				pstmt = null;
 				rs = null;
 				sql = "select * from product where prono=?";
+				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, proNo);
 				rs = pstmt.executeQuery();
 				if (rs.next()){
