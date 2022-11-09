@@ -4,7 +4,7 @@ public class Cart {
 	private int cartNo;
 	private String cusId;
 	private int proNo;
-	private int amount;
+	private int buyAmount;
 	public int getCartNo() {
 		return cartNo;
 	}
@@ -23,10 +23,10 @@ public class Cart {
 	public void setProNo(int proNo) {
 		this.proNo = proNo;
 	}
-	public int getAmount() {
-		return amount;
+	public int getBuyAmount() {
+		return buyAmount;
 	}
-	public void setAmount(int amount) {
-		this.amount = amount;
+	public void setBuyAmount(int buyAmount) {
+		this.buyAmount = buyAmount;
 	}
 }

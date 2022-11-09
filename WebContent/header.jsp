@@ -9,7 +9,7 @@
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
     		<ul class="navbar-nav mr-auto">
       			<li class="nav-item active">
-        			<a class="nav-link" href="index.jsp">SLOU BED<span class="sr-only">(current)</span></a>
+        			<a class="nav-link" href="<%=request.getContextPath() %>/index.jsp">SLOU BED<span class="sr-only">(current)</span></a>
       			</li>
       			<li class="nav-item">
         			<a class="nav-link" href="#">Brand Story</a>
@@ -17,13 +17,13 @@
      			<li class="nav-item dropdown">
       				<a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">Product</a>
 					<div class="dropdown-menu">
-						<a class="dropdown-item" href="<%=request.getContextPath() %>/GetProductListCtrl">매트리스 & 토퍼</a>
-						<a class="dropdown-item" href="#">모션 매트리스</a>
+						<a class="dropdown-item" href="<%=request.getContextPath() %>/GetProductItemListCtrl?cateNo=1">매트리스 & 토퍼</a>
+						<a class="dropdown-item" href="<%=request.getContextPath() %>/GetProductItemListCtrl?cateNo=2">모션 매트리스</a>
 						<div class="dropdown-divider"></div>
-						<a class="dropdown-item" href="#">프레임</a>
+						<a class="dropdown-item" href="<%=request.getContextPath() %>/GetProductItemListCtrl?cateNo=3">프레임</a>
 						<div class="dropdown-divider"></div>
-						<a class="dropdown-item" href="#">베개</a>
-						<a class="dropdown-item" href="#">이불</a>
+						<a class="dropdown-item" href="<%=request.getContextPath() %>/GetProductItemListCtrl?cateNo=4">베개</a>
+						<a class="dropdown-item" href="<%=request.getContextPath() %>/GetProductItemListCtrl?cateNo=5">이불</a>
 					</div>
 				</li>
 				<li class="nav-item">
@@ -49,14 +49,14 @@
 				<li class="nav-item">
   					<a class="nav-link active" href="<%=request.getContextPath() %>/LogOutCtrl">로그아웃</a>
 				</li>
-				<li class="nav-item">
-  					<a class="nav-link" href="<%=request.getContextPath() %>/GetCustomInfoCtrl">회원정보</a>
-				</li>
 			<% if(sid.equals("admin")) { %>
 				<li class="nav-item">
   					<a class="nav-link" href="<%=request.getContextPath() %>/admin/index.jsp">관리자 페이지로</a>
 				</li>
 			<% } else { %>
+				<li class="nav-item">
+  					<a class="nav-link" href="<%=request.getContextPath() %>/GetCustomInfoCtrl">회원정보</a>
+				</li>
 				<li class="nav-item">
   					<a class="nav-link" href="<%=request.getContextPath() %>/GetMemberSalesInfoCtrl">구매내역</a>
 				</li>
@@ -70,7 +70,7 @@
 				</li>
 			<% } %>
 			  	<li class="nav-item">
-			   		<a class="nav-link" href="#"><img src="./img/icon/cart.png" alt="장바구니"></a>
+			   		<a class="nav-link" href="<%=request.getContextPath() %>/GetMemberCartListCtrl"><img src="./img/icon/cart.png" alt="장바구니"></a>
 				</li>
 			</ul>	    
 		</div>

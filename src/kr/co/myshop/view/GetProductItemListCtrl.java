@@ -18,8 +18,8 @@ import javax.servlet.http.HttpServletResponse;
 import kr.co.myshop.vo.Product;
 
 
-@WebServlet("/GetProductListCtrl")
-public class GetProductListCtrl extends HttpServlet {
+@WebServlet("/GetProductItemListCtrl")
+public class GetProductItemListCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private final static String DRIVER = "com.mysql.cj.jdbc.Driver";
 	private final static String URL = "jdbc:mysql://localhost:3306/myshop?serverTimezone=Asia/Seoul";
@@ -28,12 +28,14 @@ public class GetProductListCtrl extends HttpServlet {
 	String sql = "";
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int cateNo = Integer.parseInt(request.getParameter("cateNo"));
 		try {
 			//데이터베이스 연결
 			Class.forName(DRIVER);
-			sql = "select * from product order by prono";
+			sql = "select * from product where cateno=? order by prono";
 			Connection con = DriverManager.getConnection(URL, USER, PASS);
 			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, cateNo);
 			ResultSet rs = pstmt.executeQuery();
 			
 			//결과를 데이터베이스로 부터 받아서 리스트로 저장
@@ -51,9 +53,10 @@ public class GetProductListCtrl extends HttpServlet {
 				proList.add(vo);
 			}
 			request.setAttribute("proList", proList);
+			request.setAttribute("cateNo", cateNo);
 			
-			//notice/boardList.jsp 에 포워딩
-			RequestDispatcher view = request.getRequestDispatcher("./admin/adminProductList.jsp");
+			//product/productList.jsp 에 포워딩
+			RequestDispatcher view = request.getRequestDispatcher("./product/productList.jsp");
 			view.forward(request, response);
 			
 			rs.close();

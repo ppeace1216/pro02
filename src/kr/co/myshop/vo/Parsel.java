@@ -7,7 +7,7 @@ public class Parsel {
 	private String parselCompany;	//배송회사
 	private String parselTel;		//배송기사 연락처
 	private int parselState;	//배송상태
-	private int valeCode;		//화물코드
+	private String valeCode;		//화물코드
 	public int getParselNo() {
 		return parselNo;
 	}
@@ -43,6 +43,12 @@ public class Parsel {
 	}
 	public void setParselState(int parselState) {
 		this.parselState = parselState;
+	}
+	public String getValeCode() {
+		return valeCode;
+	}
+	public void setValeCode(String valeCode) {
+		this.valeCode = valeCode;
 	}
 	
 	

@@ -88,10 +88,11 @@
 			</tbody>
 		</table>
 		<div class="btn-group">
-			<input type="submit" name="submit-btn" class="btn btn-info" value="정보수정">
-			<input type="reset" name="reset-btn" class="btn btn-info" value="취소">
+			<a href="<%=request.getContextPath() %>/index.jsp" class="btn btn-info">메인페이지로 돌아가기</a>
+			<input type="submit" name="submit-btn" class="btn btn-info" value="회원정보수정">
+			<a href="<%=request.getContextPath() %>/DeleteCustomerCtrl" class="btn btn-danger">회원탈퇴</a>
 		</div>
-	</form>	
+	</form>
 	<script>
 	function updateCheck(f){
 		if(f.edit_cusPw.value!=f.edit_cusPw2.value){

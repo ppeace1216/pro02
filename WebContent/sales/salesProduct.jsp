@@ -64,7 +64,7 @@
 				<tr>
 					<th>구매 수량</th>
 					<td>			
-						<input type="number" name="amount" id="amount" step="1" min="1" max="<%=vo.getAmount() %>" class="form-control" required>
+						<input type="number" name="amount" id="amount" step="1" min="1" max="<%=vo.getAmount() %>" class="form-control" required value="1">
 					</td>
 				</tr>
 			</tbody>

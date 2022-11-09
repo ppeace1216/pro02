@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-@WebServlet("/InsertSaleCrtl")
-public class InsertSaleCrtl extends HttpServlet {
+@WebServlet("/CartToInsertSaleCtrl")
+public class CartToInsertSaleCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private final static String DRIVER = "com.mysql.cj.jdbc.Driver";
 	private final static String URL = "jdbc:mysql://localhost:3306/myshop?serverTimezone=Asia/Seoul";
@@ -22,13 +22,14 @@ public class InsertSaleCrtl extends HttpServlet {
 	private final static String PASS = "a1234";
 	String sql = "";
 	int cnt = 0;
-	
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 		
 		int proNo = Integer.parseInt(request.getParameter("proNo"));
+		int cartNo = Integer.parseInt(request.getParameter("cartNo"));
+		int buyAmount = Integer.parseInt(request.getParameter("buyAmount"));
 		String cusId = request.getParameter("cusId");
 		String proName = request.getParameter("proName");
 		int proPrice = Integer.parseInt(request.getParameter("proPrice"));
@@ -46,8 +47,7 @@ public class InsertSaleCrtl extends HttpServlet {
 			Class.forName(DRIVER);
 			Connection con = DriverManager.getConnection(URL, USER, PASS);
 			con.setAutoCommit(false);
-			
-			//payment에 값 추가
+			//payment에 값 집어넣기
 			sql = "insert into payment(paymethod, paycom, cardnum, payamount) values (?,?,?,?)";
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, payMethod);
@@ -55,8 +55,12 @@ public class InsertSaleCrtl extends HttpServlet {
 			pstmt.setString(3, cardNum);
 			pstmt.setInt(4, payAmount);
 			pstmt.executeUpdate();
+			//카트에 있는거 구매하기 했으니깐 카트 내역은 삭제
+			sql = "delete from cart where cartno=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, cartNo);
+			pstmt.executeUpdate();
 			
-			//parsel에 값 추가
 			sql = "insert into parsel(parseladdr, cusTel) values (?,?)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, parselAddr);
@@ -64,11 +68,9 @@ public class InsertSaleCrtl extends HttpServlet {
 			pstmt.executeUpdate();
 			con.commit();
 			
-			//내림차순으로 payment에서 salepayno 하나 보기
 			sql = "select salepayno from payment order by salepayno desc limit 1";
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
-			
 			int salePayNo = 0;
 			if(rs.next()){
 				salePayNo = rs.getInt("salepayno");
@@ -78,8 +80,6 @@ public class InsertSaleCrtl extends HttpServlet {
 			rs.close();
 			pstmt.close();
 			
-			//내림차순으로 parsel에서 parselno 하나 보기
-			//rs 더 쓸일 없어서 여기서 close
 			sql = "select parselno from parsel order by parselno desc limit 1";
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
@@ -91,10 +91,8 @@ public class InsertSaleCrtl extends HttpServlet {
 			rs.close();
 			pstmt.close();
 			
-			con.setAutoCommit(false);
-			
-			//sales에 값 넣기 -> parsel, payment에 먼저 값을 넣고 그 값의 parselno, salepayno를 구해 집어넣기
 			sql = "insert into sales(cusid, prono, amount, parselno, salepayno) values(?,?,?,?,?)";
+			con.setAutoCommit(false);
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, cusId);
 			pstmt.setInt(2, proNo);
@@ -103,20 +101,19 @@ public class InsertSaleCrtl extends HttpServlet {
 			pstmt.setInt(5, salePayNo);
 			cnt = pstmt.executeUpdate();
 			
-			//wearing 재고 테이블에 업데이트
 			sql = "update wearing set amount=amount-? where prono=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, amount);
 			pstmt.setInt(2, proNo);
 			pstmt.executeUpdate();
-			
-			if(cnt>=1){
-				response.sendRedirect("GetProductListCtrl");
-			} else {
-				response.sendRedirect("GetProductDetailCtrl?proNo="+proNo);
-			}
 			con.commit();
 			con.setAutoCommit(true);
+			
+			if(cnt>=1){
+				response.sendRedirect("GetProductItemListCtrl?cateNo=3");
+			} else {
+				response.sendRedirect("CartToSaleCtrl?proNo="+proNo+"&cartNo="+cartNo);
+			}
 			pstmt.close();
 			con.close();
 		} catch (Exception e) {

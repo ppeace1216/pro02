@@ -21,7 +21,7 @@
 	<table class="table">
 		<thead>
 			<tr>
-				<th>번호</th><th>제목</th><th>작성일</th>
+				<th>번호</th><th>제목</th><th>작성일</th><th>조회수</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -32,12 +32,15 @@
 			<td><%=notiList.size()-i %></td>
 			<td><a href="<%=request.getContextPath()%>/GetNotiDetailCtrl?notiNo=<%=vo.getNotiNo() %>"><%=vo.getTitle() %></a></td>
 			<td><%=vo.getResdate() %></td>
+			<td><%=vo.getVisited() %></td>
 		</tr>
 		<% } %>	
 		</tbody>
 	</table>
 	<div class="btn-group">
+		<% if(sid!=null && sid.equals("admin")) { %>
 		<a href="./notice/insertNotice.jsp" class="btn btn-danger">글 등록</a>
+		<% } %>
 	</div>
 </div>
 <%@ include file="../footer.jsp" %>

@@ -55,10 +55,11 @@ public class GetNotiDetailCtrl extends HttpServlet {
 				vo.setAuthor(rs.getString("author"));
 				vo.setResdate(rs.getString("resdate"));
 				vo.setNotiNo(rs.getInt("notiNo"));
+				vo.setVisited(rs.getInt("visited"));
 			}
 			request.setAttribute("notice", vo);
 			
-			//notice/boardList.jsp 에 포워딩
+			//notice/noticeDetail.jsp 에 포워딩
 			RequestDispatcher view = request.getRequestDispatcher("./notice/noticeDetail.jsp");
 			view.forward(request, response);
 			

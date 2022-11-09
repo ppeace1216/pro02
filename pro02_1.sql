@@ -8,6 +8,8 @@ regDate datetime default now(), point int default 0, level int default 0, visite
 desc customer;
 alter table customer modify cusPw varchar(200);							
 select * from customer;
+delete from customer where cusid="hehehe";
+
 
 create table notice (
 	notiNo int primary key auto_increment, title varchar(50), content varchar(1000), author varchar(16), resdate datetime default now()
@@ -26,6 +28,7 @@ select * from notice order by notino desc;
 commit;
 
 create table product (proNo int primary key auto_increment, cateNo int not null, proName varchar(50) not null, proSpec varchar(500), oriPrice int not null, discountRate double not null, proPic varchar(200), proPic2 varchar(200));
+select * from product;
 
 create table category (cateNo int primary key auto_increment, cateName varchar(50));
 insert into category (cateName) values ("mattress");
@@ -47,3 +50,8 @@ select * from sales;
 select * from parsel;
 select * from payment;
 alter table sales add column parselState int default 0;
+alter table parsel add column baleCode varchar(24);
+
+create table cart(cartNo int primary key auto_increment, cusId varchar(13), proNo int);
+drop table cart;
+alter table cart add column buyAmount int;

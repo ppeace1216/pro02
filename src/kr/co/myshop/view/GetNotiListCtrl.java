@@ -46,6 +46,7 @@ public class GetNotiListCtrl extends HttpServlet {
 				vo.setContent(rs.getString("content"));
 				vo.setAuthor(rs.getString("author"));
 				vo.setResdate(rs.getString("resdate"));
+				vo.setVisited(rs.getInt("visited"));
 				//notiList에 추가
 				notiList.add(vo);
 			}	//view(noticeList.jsp)에 forward

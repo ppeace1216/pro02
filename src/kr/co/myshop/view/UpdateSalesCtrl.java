@@ -15,9 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import kr.co.myshop.vo.Parsel;
 
-/**
- * Servlet implementation class UpdateSalesCtrl
- */
+
 @WebServlet("/UpdateSalesCtrl")
 public class UpdateSalesCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;

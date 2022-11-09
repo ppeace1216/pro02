@@ -115,6 +115,7 @@
 			<div class="btn-group">
 				<input type="submit" name="submit-btn" class="btn btn-info" value="정보수정">
 				<input type="reset" name="reset-btn" class="btn btn-info" value="취소">
+				<a href="<%=request.getContextPath() %>/DeleteCustomerCtrl" class="btn btn-danger">회원탈퇴</a>
 			</div>
 		</form>	
 		<script>

@@ -26,22 +26,10 @@
 <%@ include file="../header.jsp" %>
 <%
 	List<Product> proList = (ArrayList<Product>) request.getAttribute("proList");
-	int cateNo = (int) request.getAttribute("cateNo");
+	
 %>
 <div class="content container" id="content">
-	<h2 class="title">
-	<%if(cateNo==1){%>
-	매트리스 & 토퍼
-	<%}else if (cateNo==2){%>
-	모션 매트리스
-	<%}else if (cateNo==3){%>
-	프레임
-	<%}else if (cateNo==4){%>
-	베개
-	<%}else { %>
-	이불
-	<%} %>
-	</h2>
+	<h2 class="title">제품 목록</h2>
 	<ul class="row" id="best">
 	<% for(int i=0;i<proList.size();i++) {
 		Product pro = proList.get(i);
@@ -66,6 +54,9 @@
 		</li>
 	<% } %>
 	</ul>
+	<div class="btn-group">
+		<a href="<%=request.getContextPath() %>/InsertProductCategoryCtrl" class="btn btn-danger">상품 등록</a>
+	</div>
 </div>
 <%@ include file="../footer.jsp" %>
 </body>
